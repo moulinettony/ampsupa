@@ -8,10 +8,21 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
+        // Set CORS headers to allow requests from any origin
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+        if (req.method === 'OPTIONS') {
+            // Preflight request, respond with 200
+            return res.status(200).end();
+        }
+
         // Fetch data from Supabase table
         const { data, error } = await supabase
             .from('amptable')
-            .select('name, id');
+            .select('name, id'); // or pass an array of strings: .select(['name', 'id']);
 
         if (error) {
             throw error;
