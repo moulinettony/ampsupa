@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from './index.module.css';
 
 const ApiDataPage = () => {
     const [data, setData] = useState<any[]>([]); 
@@ -18,9 +19,9 @@ const ApiDataPage = () => {
     }, []);
 
     return (
-        <div>
-            <h1>API Data</h1>
-            <table>
+        <div className={styles.container}>
+            <h1 className={styles.title}>API Data</h1>
+            <table className={styles.table}>
                 <thead>
                     <tr>
                         <th>ID</th>
