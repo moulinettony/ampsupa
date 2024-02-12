@@ -28,7 +28,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             throw error;
         }
 
-        res.status(200).json(data);
+        const responseData = {
+            items: data
+        };
+
+        res.status(200).json(responseData);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching data from Supabase' });
     }
