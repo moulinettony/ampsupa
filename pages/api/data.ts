@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Fetch data from Supabase table
         const { data, error } = await supabase
             .from('amptable')
-            .select('name, id'); // or pass an array of strings: .select(['name', 'id']);
+            .select('*'); 
 
         if (error) {
             throw error;
