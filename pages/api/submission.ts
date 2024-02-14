@@ -21,7 +21,9 @@ exports.handler = async (event:any) => {
         statusCode: 200,
         headers: {
           'Access-Control-Allow-Origin': '*', // Allow requests from any origin
-          'Access-Control-Allow-Methods': 'POST', // Allow only POST requests
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', // Allow only POST requests
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Content-Type header
+          'Access-Control-Allow-Credentials': 'true',
         },
         body: JSON.stringify({ success: true, data }),
       };
@@ -29,7 +31,10 @@ exports.handler = async (event:any) => {
       return {
         statusCode: 500,
         headers: {
-          'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+            'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', // Allow only POST requests
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Content-Type header
+            'Access-Control-Allow-Credentials': 'true',
         },
         body: JSON.stringify({ success: false, error: 'Error inserting data into Supabase' }),
       };
