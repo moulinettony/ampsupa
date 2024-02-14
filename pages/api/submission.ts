@@ -5,26 +5,33 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 exports.handler = async (event:any) => {
-  try {
-    const body = JSON.parse(event.body);
-    const { name, email } = body;
-    
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{ name, email }]);
+    try {
+      const body = JSON.parse(event.body);
+      const { name, email } = body;
       
-    if (error) {
-      throw error;
+      const { data, error } = await supabase
+        .from('users')
+        .insert([{ name, email }]);
+        
+      if (error) {
+        throw error;
+      }
+      
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+          'Access-Control-Allow-Methods': 'POST', // Allow only POST requests
+        },
+        body: JSON.stringify({ success: true, data }),
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+        },
+        body: JSON.stringify({ success: false, error: 'Error inserting data into Supabase' }),
+      };
     }
-    
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ success: true, data }),
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ success: false, error: 'Error inserting data into Supabase' }),
-    };
-  }
-};
+  };
