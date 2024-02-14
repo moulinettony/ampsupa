@@ -8,22 +8,21 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
-) {
-    try {
-        const { name, email } = req.body;
-        const { data, error } = await supabase
-            .from('users')
-            .insert([{ name, email }]);
-
-        if (error) {
-            console.error('Error inserting data into Supabase:', error);
-            res.status(500).json({ success: false, error: 'Error inserting data into Supabase' });
-        } else {
-            res.status(200).json({ success: true, "test" : data });
-            console.log('testing data:', data);
+  ) {
+    if (req.method === 'POST') {
+      const { name, email } = req.body;
+  
+      const { data, error } = await supabase
+        .from('users')
+        .insert([{ name, email }]);
+  
+      if (error) {
+        return res.status(400).json({ error: error.message });
+      }
+  
+      return res.status(200).json(data);
     }
-    } catch (error) {
-        console.error('Error processing form submission:', error);
-        res.status(500).json({ success: false, error: 'Error processing form submission' });
-    }
-}
+  
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }

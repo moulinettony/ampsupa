@@ -1,48 +1,51 @@
-import React from 'react';
+import { useState } from 'react';
 
-const IndexPage: React.FC = () => {
+const ContactForm = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    const formData = new FormData(event.currentTarget);
-    
-    try {
-      const response = await fetch('http://localhost:3000/api/submission', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (response.ok) {
-        console.log('Form submitted successfully:', Object.fromEntries(formData));
-        // Optionally, you can handle success here (e.g., show a success message)
-      } else {
-        console.error('Error submitting form:', response.statusText);
-        // Optionally, you can handle errors here (e.g., show an error message)
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      // Optionally, you can handle errors here (e.g., show an error message)
+    const response = await fetch('/api/submission', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email }),
+    });
+
+    if (response.ok) {
+      // Handle success
+      console.log('Form submitted successfully!');
+      setName('');
+      setEmail('');
+    } else {
+      // Handle error
+      console.log('Failed to submit form.');
     }
   };
-  
+
   return (
-    <div>
-      <h1>AMP Form</h1>
-      <form method="post" action="/api/submission" onSubmit={handleSubmit} target="_top">
-        <fieldset>
-          <label>
-            Name:
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email:
-            <input type="email" name="email" required />
-          </label>
-        </fieldset>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <label htmlFor="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 
-export default IndexPage;
+export default ContactForm;
