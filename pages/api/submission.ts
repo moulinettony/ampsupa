@@ -9,9 +9,9 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
   ) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Origin', 'https://rolling.mydopweb.com');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     if (req.method === 'POST') {
       const { name, email } = req.body;
   
