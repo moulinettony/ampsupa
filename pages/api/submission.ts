@@ -27,6 +27,7 @@ export default async function handler(
         body += chunk.toString();
       });
       await new Promise((resolve) => req.on('end', resolve));
+      console.log('Raw body:', body);
   
       const parsedBody = parse(body);
       const { name, email } = parsedBody;
