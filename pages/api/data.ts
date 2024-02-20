@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         // Set CORS headers to allow requests from any origin
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Origin', 'https://rolling.mydopweb.com');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -19,10 +19,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(200).end();
         }
 
-        // Fetch data from Supabase table
-        const { data, error } = await supabase
-            .from('amptable')
-            .select('*'); 
+        let query = supabase.from('amptable').select('*');
+
+        // Filter by age if provided
+        if (req.method === 'GET' && req.query.age) {
+            query = query.eq('age', req.query.age);
+        }
+
+        const { data, error } = await query;
 
         if (error) {
             throw error;

@@ -27,8 +27,8 @@ export default async function handler(
         body += chunk.toString();
       });
       await new Promise((resolve) => req.on('end', resolve));
-      console.log('Raw body:', body);
   
+      // Use the 'parse' function from 'querystring' to parse the form data
       const parsedBody = parse(body);
       const { name, email } = parsedBody;
   
