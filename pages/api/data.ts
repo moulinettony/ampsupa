@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(200).end();
         }
 
-        let query = supabase.from('amptable').select('*');
+        let query = supabase.from('users').select('*');
 
         // Filter by age if provided
         if (req.method === 'GET' && req.query.age) {
