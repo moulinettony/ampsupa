@@ -9,12 +9,12 @@ export default function handler(req:any, res:any) {
         res.status(200).end();
         return;
       }
-      
+
     const { name, email } = req.body;
   
     const redirectUrl = `https://www.dopweb.com/?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
   
     res.setHeader('AMP-Redirect-To', redirectUrl);
     res.setHeader('Access-Control-Expose-Headers', 'AMP-Redirect-To');
-    res.status(200).json({ message: "Redirecting..." });
+    res.status(200).json({ url: redirectUrl});
   }
