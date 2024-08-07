@@ -17,9 +17,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error(`Instagram API responded with status ${response.status}`);
     }
     const data = await response.json();
-    res.status(200).json(data);
-  } catch (error:any) {
+
+    // Transform the data
+    const transformedData = {
+      items: data.data, // Rename 'data' to 'items'
+      // Remove 'paging' section
+    };
+
+    res.status(200).json(transformedData);
+  } catch (error: any) {
     console.error('Error fetching Instagram posts:', error.message);
-    res.status(500).json({ error });
+    res.status(500).json({ error: 'Failed to fetch Instagram posts' });
   }
 }
