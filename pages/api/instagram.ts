@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Remove 'paging' section
     };
 
-    res.setHeader('Access-Control-Allow-Origin', 'https://taptam.com/');
+    res.setHeader('Access-Control-Allow-Origin', 'https://taptam.com');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
