@@ -14,11 +14,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `${INSTAGRAM_API_URL}/${userId}/media?fields=${fields}&access_token=${accessToken}&limit=${limit}`
     );
     if (!response.ok) {
-      throw new Error('Failed to fetch Instagram posts');
+      throw new Error(`Instagram API responded with status ${response.status}`);
     }
     const data = await response.json();
     res.status(200).json(data);
-  } catch (error) {
+  } catch (error:any) {
+    console.error('Error fetching Instagram posts:', error.message);
     res.status(500).json({ error: 'Failed to fetch Instagram posts' });
   }
 }
