@@ -58,17 +58,17 @@ const HomePage: React.FC = () => {
         <div>No posts available</div>
       ) : (
         posts.map((post) => (
-          <div key={post.id} className="relative pb-full overflow-hidden">
-            <div className="absolute inset-0">
+          <div key={post.id} className="">
+            <div className="">
               {post.media_type === "IMAGE" && (
                 <img
                   src={post.media_url}
                   alt={post.caption}
-                  className="w-full h-full object-cover"
+                  className=""
                 />
               )}
               {post.media_type === "VIDEO" && (
-                <video className="w-full h-full object-cover" loop autoPlay muted>
+                <video className="" loop autoPlay muted>
                   <source src={post.media_url} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
