@@ -1,6 +1,4 @@
-// pages/index.tsx
 import { useEffect, useState } from "react";
-import styles from "./index.module.css";
 
 interface InstagramPost {
   id: string;
@@ -15,6 +13,7 @@ interface InstagramPost {
 const HomePage: React.FC = () => {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,36 +23,60 @@ const HomePage: React.FC = () => {
           throw new Error("Failed to fetch");
         }
         const data = await response.json();
-        setPosts(data.data);
+        console.log("Fetched data:", data); // Debugging log
+
+        // Adjust the logic here based on the actual data structure
+        if (data && Array.isArray(data.items)) {
+          console.log("Data.items is an array:", data.items);
+          setPosts(data.items);
+        } else {
+          console.error("Unexpected data structure:", data);
+          throw new Error("Unexpected data structure");
+        }
       } catch (error: any) {
+        console.error("Error fetching data:", error.message);
         setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPosts();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <div className="grid container">
-      {posts.map((post) => (
-        <div key={post.id}>
-          <div className="square-container">
-            {post.media_type === "IMAGE" && (
-              <img src={post.media_url} alt={post.caption} width="300" />
-            )}
-            {post.media_type === "VIDEO" && (
-              <video width="300" controls>
-                <source src={post.media_url} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
+    <div className="grid">
+      {posts.length === 0 ? (
+        <div>No posts available</div>
+      ) : (
+        posts.map((post) => (
+          <div key={post.id} className="relative pb-full overflow-hidden">
+            <div className="absolute inset-0">
+              {post.media_type === "IMAGE" && (
+                <img
+                  src={post.media_url}
+                  alt={post.caption}
+                  className="w-full h-full object-cover"
+                />
+              )}
+              {post.media_type === "VIDEO" && (
+                <video className="w-full h-full object-cover" loop autoPlay muted>
+                  <source src={post.media_url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };
