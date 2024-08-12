@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("/api/instagram");
+        const response = await fetch("/api/insta2");
         if (!response.ok) {
           throw new Error("Failed to fetch");
         }

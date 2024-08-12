@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+  const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN_2;
 
   try {
     const response = await fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${accessToken}`);

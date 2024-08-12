@@ -1,11 +1,11 @@
-// pages/api/instagram.ts
+// pages/api/insta2.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const INSTAGRAM_API_URL = `https://graph.instagram.com`;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
-  const userId = process.env.INSTAGRAM_USER_ID;
+  const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN_2;
+  const userId = process.env.INSTAGRAM_USER_ID_2;
   const fields = 'id,caption,media_type,media_url,thumbnail_url,timestamp,permalink';
   const limit = 6;
 
