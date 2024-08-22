@@ -12,6 +12,17 @@ const ExampleAMPPage = ({ clarityTrackingId }: PageProps) => {
         <meta charSet="utf-8" />
         <title>Example AMP Page</title>
         <link rel="canonical" href="https://yourdomain.com/example" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ8C006ZEC"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-YQ8C006ZEC');
+            `,
+          }}
+        />
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
         <script
           type="application/json"
