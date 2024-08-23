@@ -13,10 +13,6 @@ const ExampleAMPPage = ({ clarityTrackingId }: PageProps) => {
         <meta charSet="utf-8" />
         <title>Example AMP Page</title>
         <link rel="canonical" href="https://yourdomain.com/example" />
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-YQ8C006ZEC"
-        ></script>
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
@@ -36,18 +32,6 @@ const ExampleAMPPage = ({ clarityTrackingId }: PageProps) => {
       </main>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  // Fetch the Clarity tracking ID from your API
-  const response = await fetch("https://amp-supabase.vercel.app/api/clarity");
-  const data = await response.json();
-
-  return {
-    props: {
-      clarityTrackingId: data.trackingId,
-    },
-  };
 };
 
 export default ExampleAMPPage;
