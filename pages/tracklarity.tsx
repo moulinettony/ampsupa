@@ -1,18 +1,10 @@
-import { GetStaticProps } from "next";
 import Head from "next/head";
 import Script from "next/script";
 
-interface PageProps {
-  clarityTrackingId: string;
-}
-
-const ExampleAMPPage = ({ clarityTrackingId }: PageProps) => {
+const ExampleAMPPage = () => {
   return (
     <>
       <Head>
-        <meta charSet="utf-8" />
-        <title>Example AMP Page</title>
-        <link rel="canonical" href="https://yourdomain.com/example" />
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
