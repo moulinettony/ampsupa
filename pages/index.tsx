@@ -16,7 +16,7 @@ const ApiDataPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/data");
@@ -39,7 +39,7 @@ const ApiDataPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); */
 
   if (loading) {
     return <div>Loading...</div>;
@@ -98,7 +98,7 @@ const ApiDataPage = () => {
               <th>Created At</th>
             </tr>
           </thead>
-          <tbody>
+          {/*<tbody>
             {data.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
@@ -109,7 +109,7 @@ const ApiDataPage = () => {
                 </td>
               </tr>
             ))}
-          </tbody>
+          </tbody>*/}
         </table>
       </div>
     </>
