@@ -31,8 +31,8 @@ export default function handler(
   }
 
   const data: ClarityData = {
-    projectId: "nr9uu90bjk",
-    trackingUrl: "https://www.clarity.ms/tag/nr9uu90bjk",
+    projectId: "nte9xoffbe",
+    trackingUrl: "https://www.clarity.ms/tag/nte9xoffbe",
   };
 
   res.status(200).json({ items: [data] });
