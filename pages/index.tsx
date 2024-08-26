@@ -52,6 +52,7 @@ const ApiDataPage = () => {
   return (
     <>
       <Head>
+        {/* Inline script for configuring Clarity */}
         <Script
           id="microsoft-clarity"
           strategy="afterInteractive"
@@ -62,6 +63,27 @@ const ApiDataPage = () => {
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "nr9uu90bjk");`,
+          }}
+        />
+        {/* Async Google Tag Manager script */}
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-P92H83LH9B`}
+          async
+        />
+
+        {/* Inline script for configuring Google Analytics */}
+        <Script
+          id="gtm-inline-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-P92H83LH9B');
+            `,
           }}
         />
       </Head>
