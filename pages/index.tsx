@@ -3,7 +3,12 @@ import { format } from "date-fns";
 import Head from "next/head";
 import Script from "next/script";
 import styles from "./index.module.css";
-
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
 interface DataItem {
   id: number;
   name: string;
@@ -15,7 +20,21 @@ const ApiDataPage = () => {
   const [data, setData] = useState<DataItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-P92H83LH9B";
+    script.async = true;
+    document.head.appendChild(script);
 
+    script.onload = () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args: any[]) {
+        window.dataLayer.push(args);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-P92H83LH9B');
+    };
+  }, []);
   /* useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,27 +82,6 @@ const ApiDataPage = () => {
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "nr9uu90bjk");`,
-          }}
-        />
-        {/* Async Google Tag Manager script */}
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-P92H83LH9B`}
-          async
-        />
-
-        {/* Inline script for configuring Google Analytics */}
-        <Script
-          id="gtm-inline-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-P92H83LH9B');
-            `,
           }}
         />
       </Head>
