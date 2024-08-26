@@ -39,7 +39,7 @@ const ApiDataPage = () => {
     };
 
     fetchData();
-  }, []); */
+  }, []); 
 
   if (loading) {
     return <div>Loading...</div>;
@@ -47,7 +47,7 @@ const ApiDataPage = () => {
 
   if (error) {
     return <div>Error fetching data: {error}</div>;
-  }
+  }*/
 
   return (
     <>
@@ -88,7 +88,7 @@ const ApiDataPage = () => {
         />
       </Head>
       <div className={styles.container}>
-        <h1 className={styles.title}>API Data</h1>
+        <h1 className={styles.title}>Welcome</h1>
         <table className={styles.table}>
           <thead>
             <tr>
